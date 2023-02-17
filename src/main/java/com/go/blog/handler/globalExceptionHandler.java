@@ -1,5 +1,7 @@
 package com.go.blog.handler;
 
+import com.go.blog.dto.ResponseDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,11 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class globalExceptionHandler {
 
 
-    //IllegalArgumentException 예외가 터질경우 스프링이 이함수에 받아오고 메소드 실행
-    @ExceptionHandler(value=IllegalArgumentException.class)
-     public String handlerArgumentException(IllegalArgumentException e){
+    //IllegalArgumentException 예외가 오류가 터질경우 스프링이 이함수에 받아오고 메소드 실행
+    @ExceptionHandler(value=Exception.class)
+     public ResponseDto<String> handlerArgumentException(Exception e){
 
-         return "<h1>" + e.getMessage() + "</h1>";
+         return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+
 
      }
 

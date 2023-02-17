@@ -4,8 +4,8 @@ import com.go.blog.domain.User;
 import com.go.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 //스프링이 컴포넌트 스캔을 통해서 Bean에 등록을 해줌. 스프링 IOC 컨테이너에 등록 즉 IOC를 해줌
 @Service
@@ -15,14 +15,17 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional // 하나의 이메소드 서비스 전체가 하나의 트랜잭션으로 묶이게됨. 따라서 전체가 성공하면 commit이됨 , 전체에서 실패가 뜨면 롤백
-    public int userSave(User user){
-        try{
+    public void userSave(User user){ //회원가입
             userRepository.save(user);
-            return 1;
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println("UserService: 회원가입(): " + e.getMessage());
-        }
-        return -1;
     }
+
+
+    @Transactional(readOnly = true) //select 할때 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료 (정합성)
+    public User userLogin(User user){ //로그인
+
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+
+    }
+
+
 }
