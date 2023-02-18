@@ -22,8 +22,8 @@ public class UserApiController {
     @Autowired //service도 DI 가능 왜? spring IOC 컨테이너에 userservice를 등록시켰기 때문
     private UserService userService;
 
-    @PostMapping("/api/user")
-    public ResponseDto<Integer> save(@RequestBody User user){
+    @PostMapping("/auth/joinProc")
+    public ResponseDto<Integer> save(@RequestBody User user){ //회원가입 맵핑
         //실제로 DB에 insert 후 아래로 return
         user.setRole(RoleType.USER);
         userService.userSave(user);
@@ -33,20 +33,7 @@ public class UserApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); //자바 오브젝트를 Json으로 변환해서 리턴(Jackson),1이면 성공 실패면 -1
     }
        //구 로그인 API
-//    @PostMapping("/api/user/login")
-//    public String login(@RequestBody User user, HttpSession session) throws JsonProcessingException {
-//        System.out.println("userApiController: login 호출됨");
-//        User principal = userService.userLogin(user); // 접근 주체
-//
-//        if (principal !=null){
-//            session.setAttribute("principal", principal);
-//        }
-//        //return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writeValueAsString(principal);
-//        return json;
-//    }
+
 
 
 
