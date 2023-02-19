@@ -22,6 +22,7 @@ public class DummyContollerTest {
 
     @Autowired // UserRepository 타입으로 스프링이 관리하고 있는 객체가 있다면 자동 주입 -> 의존성 주입(DI)
     private UserRepository userRepository;
+    
 
 
 

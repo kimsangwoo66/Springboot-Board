@@ -9,6 +9,7 @@ import com.go.blog.dto.ResponseDto;
 import com.go.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,10 +23,13 @@ public class UserApiController {
     @Autowired //service도 DI 가능 왜? spring IOC 컨테이너에 userservice를 등록시켰기 때문
     private UserService userService;
 
+
+
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user){ //회원가입 맵핑
         //실제로 DB에 insert 후 아래로 return
-        user.setRole(RoleType.USER);
+
+
         userService.userSave(user);
 
         //java object -> json 데이터로 변환 하기위해 객체 생성
