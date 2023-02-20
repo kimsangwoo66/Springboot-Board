@@ -4,6 +4,9 @@ import com.go.blog.domain.Board;
 import com.go.blog.domain.User;
 import com.go.blog.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +30,9 @@ public class BoardService {
     }
 
     //글 목록 조회
-    public List<Board> boardsSelect(){
-        return boardRepository.findAll();
+    //페이징 기능 추가
+    public Page<Board> boardsSelect(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
 
 

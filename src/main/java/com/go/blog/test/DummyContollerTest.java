@@ -103,7 +103,7 @@ public class DummyContollerTest {
     // http://localhost:8080/dummy/user?page={페이지 번호}
     //한페이지당 2건의 데이터 리턴받기
     @GetMapping("/dummy/user")
-    public List<User> pageList(@PageableDefault(size = 2, sort="id", direction = Sort.Direction.DESC)
+    public Page<User> pageList(@PageableDefault(size = 2, sort="id", direction = Sort.Direction.DESC)
                                Pageable pageable){
 
         //페이징 객체 생성
@@ -112,7 +112,7 @@ public class DummyContollerTest {
         //페이징 객체 중 content만 가져오는 객체 생성
         List<User> user = pagingUser.getContent();
 
-        return user;
+        return pagingUser;
 
     }
 
