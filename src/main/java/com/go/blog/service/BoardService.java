@@ -37,6 +37,7 @@ public class BoardService {
     }
 
 
+    //글 상세 내용 조회
     @Transactional(readOnly = true)
     public Board boardDetail(int id){
         return boardRepository.findById(id).
@@ -46,11 +47,27 @@ public class BoardService {
 
     }
 
+    //글 삭제
     @Transactional
     public void boardDelete(int id){
 
         boardRepository.deleteById(id);
 
+    }
+
+    //글 수정
+    @Transactional
+    public void boardUpdate(int id, Board requestBoard){
+        //영속화
+        Board board = boardRepository.findById(id)
+                .orElseThrow(()->{
+                   return new IllegalArgumentException("게시글을 찾는데 실패하였습니다.");
+                });
+
+        board.setTitle(requestBoard.getTitle());
+        board.setContent(requestBoard.getContent());
+        // 해당 함수 종료시 즉 서비스가 종료될때 트랜잭션이 종료.. 이때 더티체킹 발생 -> DB에서 자동업데이트 = flush
+        // 이렇게 하려면 어노테이션 transactional을 걸어야함
     }
 
 

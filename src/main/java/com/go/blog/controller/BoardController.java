@@ -41,10 +41,18 @@ public class BoardController {
 
 
     @GetMapping("/board/{id}")
-    public String findById(@PathVariable int id, Model model){
+    public String findByIdBoardDetail(@PathVariable int id, Model model){
         model.addAttribute("board", boardService.boardDetail(id));
         return "board/detail";
 
+    }
+
+
+    @GetMapping("/board/{id}/updateForm")
+    public String findByIdBoardUpdate(@PathVariable int id, Model model){
+        model.addAttribute("board", boardService.boardDetail(id));
+
+        return "board/updateForm";
     }
 
 
