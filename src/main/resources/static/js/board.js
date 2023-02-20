@@ -5,7 +5,13 @@ let index = {
             this.save();
         });
 
+        $("#btn-delete").on("click", ()=>{ //function을 사용하지 않는 이유는 this를 바인딩하기 위함
+                    this.deleteById();
+                });
+
     },
+
+
     save: function(){
         //alert("user의 save 함수가 호출됨");
 
@@ -35,6 +41,27 @@ let index = {
 
            });
     },
+
+
+    deleteById: function(){
+               // id 값을 찾아서 거기 있는 텍스트값 ${board.id} 을 가져오려면 .val() 말고 .text()를 써야함
+               var id = $("#id").text();
+
+
+               $.ajax({
+                   type:"DELETE",
+                   url:"/api/board/"+id,
+                   dataType:"json" // 요청을 서버로해서 응답이 왔을때 기본적으로 모든것이 문자열(생긴 Json이라면) => javascript object로 변경
+               //회원가입 수행을 요청
+               }).done(function(resp){
+                    alert("삭제가 완료되었습니다.");
+                    location.href="/";
+               }).fail(function(error){
+                    //회원가입에 실패하면 실행하는 함수
+                    alert(JSON.stringify(error));
+
+               });
+        },
 
 }
 

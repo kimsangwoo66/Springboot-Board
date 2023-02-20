@@ -44,7 +44,7 @@ public class Board {
     //FetchType.EAGER : 무조건 join 해서 들고오는 전략
     //너가 board 타입을 select하면 유저 정보는 무조건 가져올께 왜? 한건밖에 없으니까
 
-    @ManyToOne(fetch = FetchType.EAGER) //연간관계 Many = Board, One = User -> 한명의 유저는 여러개의 게시물을 사용할 수있음, 여러개의 개시물은 한명에 의해 쓰일수 있음
+    @ManyToOne(fetch = FetchType.LAZY) //연간관계 Many = Board, One = User -> 한명의 유저는 여러개의 게시물을 사용할 수있음, 여러개의 개시물은 한명에 의해 쓰일수 있음
     @JoinColumn(name="userId") //userId로 필드값이 생김 (FK)
     private User user; //게시물을 작성한 유저
 

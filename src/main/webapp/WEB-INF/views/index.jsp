@@ -20,11 +20,12 @@
     <div class="card m-2">
       <div class="card-body">
         <h4 class="card-title">${board.title}</h4>
-        <a href="#" class="btn btn-primary">상세보기</a>
+        <a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
       </div>
     </div>
 </c:forEach>
 
+<!-- 페이징 처리 -->
 <ul class="pagination justify-content-center">
     <c:choose>
         <c:when test="${boards.first}">
@@ -35,9 +36,6 @@
             <li class="page-item"><a class="page-link" href="?page=${boards.number-1}">이전</a></li>
         </c:otherwise>
     </c:choose>
-
-
-
 
     <c:choose>
         <c:when test="${boards.last}">

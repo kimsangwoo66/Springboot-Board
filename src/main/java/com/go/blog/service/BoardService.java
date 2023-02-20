@@ -31,10 +31,27 @@ public class BoardService {
 
     //글 목록 조회
     //페이징 기능 추가
+    @Transactional(readOnly = true)
     public Page<Board> boardsSelect(Pageable pageable){
         return boardRepository.findAll(pageable);
     }
 
+
+    @Transactional(readOnly = true)
+    public Board boardDetail(int id){
+        return boardRepository.findById(id).
+                orElseThrow(() -> {
+                    return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+                });
+
+    }
+
+    @Transactional
+    public void boardDelete(int id){
+
+        boardRepository.deleteById(id);
+
+    }
 
 
 }
