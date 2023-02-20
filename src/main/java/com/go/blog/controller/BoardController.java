@@ -5,10 +5,15 @@ import com.go.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class BoardController {
+
+
+    @Autowired
+    private BoardService boardService;
 
     // user 권한 필요
     @GetMapping("/board/saveForm")
@@ -17,15 +22,19 @@ public class BoardController {
     }
 
 
-
-    //@AuthenticationPrincipal PrincipalDetail principal
-    @GetMapping("/")      //컨트롤러에서 spring 시큐리티 세션을 어떻게 찾는지 -> @AuthenticationPrincipal PrincipalDetail principal로 찾을 수 있음
-    public String index(){
+    ////컨트롤러에서 spring 시큐리티 세션을 어떻게 찾는지 -> @AuthenticationPrincipal PrincipalDetail principal로 찾을 수 있음
+    // @AuthenticationPrincipal PrincipalDetail principal
+    @GetMapping("/")
+    public String index(Model model){
+        model.addAttribute("boards",boardService.boardsSelect());
         //System.out.println("로그인 사용자 아이디: " + principal.getUsername());
-
-
         // /WEB-INF/views/index.jsp
 
-        return "index";
+        return "index"; //veiwresolver가 작동 -> index페이지로 model의 정보를 가지고 이동
+        // 모델에 담으면 viewResolver가 model을 view까지 이동 시켜줌
     }
+
+
+
+
 }
