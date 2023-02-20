@@ -1,10 +1,8 @@
 package com.go.blog.repository;
 
+import com.go.blog.domain.Board;
 import com.go.blog.domain.User;
-import lombok.Data;
-import lombok.Getter;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -15,11 +13,11 @@ import java.util.Optional;
 //자동으로 bean에 등록됨 = 스프링 IOC에 등록됨
 // @Repository 생략 가능
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface BoardRepository extends JpaRepository<Board, Integer> {
     // Optional -> 네이밍 쿼리
     // Select * FROM user where username = 1?
 
-    Optional<User> findByUsername(String username);
+
 
 
 }
