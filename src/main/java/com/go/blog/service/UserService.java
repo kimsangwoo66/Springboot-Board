@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 //스프링이 컴포넌트 스캔을 통해서 Bean에 등록을 해줌. 스프링 IOC 컨테이너에 등록 즉 IOC를 해줌
 @Service
@@ -28,6 +30,29 @@ public class UserService {
             user.setPassword(encPassword);
             user.setRole(RoleType.USER);
             userRepository.save(user);
+    }
+
+
+    // 여기서 받는 user는 외부로 받는 user (hidden을 통해 ajax로 id값을 받아왔기 때문)
+    // 수정시에는 영속성 컨텍스트 User 오브젝트를 영속화 후 영속화된 User 오브젝트를 수정
+    // 영속화된 오브젝트를 변경하면 자동으로 DB에 update문을 날려주기 때문
+    @Transactional
+    public void userUpdate(User user){
+
+        //영속화
+        User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
+            return new IllegalArgumentException("회원 찾기 실패");
+        });
+
+        String rawPassword = user.getPassword();
+
+        //수정한 패스워드 재 암호화
+        String encPassword = encoder.encode(rawPassword);
+        persistance.setPassword(encPassword);
+        persistance.setEmail(user.getEmail());
+
+        // 회원 함수 종료시 = 서비스 종료 = 트랜젝션 종료 = commit이 자동으로 발생
+        // 영속화된 persistance 객체의 변화가 감지되면 더티체킹되어 update문 실행
     }
 
 

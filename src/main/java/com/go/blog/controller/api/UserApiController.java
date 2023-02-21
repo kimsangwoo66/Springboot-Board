@@ -10,10 +10,7 @@ import com.go.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +33,13 @@ public class UserApiController {
 
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); //자바 오브젝트를 Json으로 변환해서 리턴(Jackson),1이면 성공 실패면 -1
     }
-       //구 로그인 API
+
+    @PutMapping("/user")
+    public ResponseDto<Integer> userInfoUpdate(@RequestBody User user){
+
+        userService.userUpdate(user);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
 
 
 

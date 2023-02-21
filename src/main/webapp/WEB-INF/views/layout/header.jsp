@@ -9,7 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!--spring security 승인태그 -->
+
+<!--spring security 승인태그 , 세션으로 저장된 로그인 객체가 principal이름으로 저장, var="principal" 이 userDetail-->
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal" />
 </sec:authorize>
