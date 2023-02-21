@@ -49,11 +49,12 @@ let index = {
 
 
     update: function(){
-            //alert("user의 save 함수가 호출됨");
+
 
             //입력 값을 찾아서 자바스큽트 오브젝트에 넣음 #-> #username 은 id=username 으로 되어있는 곳의 입력값을 찾음
                let data = {
                     id : $("#id").val(),
+                    username: $("#username").val(),
                     password: $("#password").val(),
                     email: $("#email").val()
                };

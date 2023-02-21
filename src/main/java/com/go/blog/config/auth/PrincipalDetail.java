@@ -3,6 +3,7 @@ package com.go.blog.config.auth;
 import com.go.blog.domain.User;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +14,8 @@ import java.util.Collection;
 // 스프링 시큐리티가 로그인 요청을 가로채서 로그인 진행을 완료하면 UserDetails 타입의 오브젝트를
 // 스프링 시큐리티의 고유한 세션 저장소에 저장
 
-@Getter //다른 레이어 세션에서 user 객체 내용을 꺼내 쓰기 위해
+//@Getter //다른 레이어 세션에서 user 객체 내용을 꺼내 쓰기 위해
+@Data
 public class PrincipalDetail implements UserDetails {
 
     public PrincipalDetail(User user){
